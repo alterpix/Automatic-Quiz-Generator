@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Quiz Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="glass-card">
+            <h1>AI Quiz Generator</h1>
+            <p class="subtitle">Transform any text or topic into an interactive quiz instantly.</p>
+
+            <div class="input-group">
+                <textarea id="topicInput"
+                    placeholder="Enter a topic (e.g., 'Quantum Physics') or paste text here..."></textarea>
+            </div>
+
+            <div class="options-row" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                <div class="select-group" style="flex: 1;">
+                    <label
+                        style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">Difficulty</label>
+                    <select id="difficultySelect"
+                        style="width: 100%; padding: 0.8rem; background: rgba(15, 23, 42, 0.6); border: 2px solid var(--glass-border); border-radius: 0.8rem; color: white; font-family: var(--font-family);">
+                        <option value="Easy">Easy</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                </div>
+                <div class="select-group" style="flex: 1;">
+                    <label
+                        style="display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">Questions</label>
+                    <select id="countSelect"
+                        style="width: 100%; padding: 0.8rem; background: rgba(15, 23, 42, 0.6); border: 2px solid var(--glass-border); border-radius: 0.8rem; color: white; font-family: var(--font-family);">
+                        <option value="5">5 Questions</option>
+                        <option value="10" selected>10 Questions</option>
+                        <option value="15">15 Questions</option>
+                    </select>
+                </div>
+            </div>
+
+            <button id="generateBtn" class="btn-primary">
+                <span class="btn-text">Generate Quiz</span>
+                <div class="loader"></div>
+            </button>
+        </div>
+
+        {% if recent_quizzes %}
+        <div class="glass-card" style="margin-top: 2rem;">
+            <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; text-align: center;">Recent Quizzes</h2>
+            <div class="quiz-list" style="display: grid; gap: 1rem;">
+                {% for quiz in recent_quizzes %}
+                <a href="/quiz/{{ quiz.id }}" class="quiz-item" style="
+                    display: flex; 
+                    justify-content: space-between; 
+                    align-items: center; 
+                    padding: 1rem; 
+                    background: rgba(255,255,255,0.05); 
+                    border-radius: 0.8rem; 
+                    text-decoration: none; 
+                    color: var(--text-color); 
+                    transition: all 0.2s ease;
+                    border: 1px solid transparent;
+                ">
+                    <span style="font-weight: 500;">{{ quiz.topic }}</span>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">{{ quiz.created_at.strftime('%Y-%m-%d
+                        %H:%M') }}</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <style>
+        .quiz-item:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: var(--primary-color) !important;
+            transform: translateX(5px);
+        }
+    </style>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

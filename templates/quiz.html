@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taking Quiz - AI Quiz Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Quiz View -->
+        <div id="quizContainer" class="glass-card">
+            <div class="quiz-header">
+                <span id="questionCounter">Question 1/10</span>
+                <span id="topicBadge"
+                    style="background: rgba(255,255,255,0.1); padding: 0.3rem 0.8rem; border-radius: 1rem; font-size: 0.9rem;">Topic</span>
+            </div>
+
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+
+            <div id="questionContainer" style="margin-top: 2rem;">
+                <h2 id="questionText" class="question-text">Loading question...</h2>
+
+                <div id="optionsGrid" class="options-grid">
+                    <!-- Options will be injected here -->
+                </div>
+
+                <div id="explanationBox" class="explanation-box">
+                    <h3>Explanation</h3>
+                    <p id="explanationText"></p>
+                </div>
+            </div>
+
+            <div class="quiz-controls">
+                <button id="nextBtn" class="btn-next">Next Question</button>
+            </div>
+        </div>
+
+        <!-- Results View -->
+        <div id="resultsContainer" class="glass-card results-view">
+            <h1>Quiz Completed!</h1>
+            <p class="subtitle">Here's how you performed</p>
+
+            <div class="score-circle">
+                <div class="score-text">
+                    <span id="finalScore">0</span>%
+                    <span class="score-label">Score</span>
+                </div>
+            </div>
+
+            <p id="resultMessage" style="margin-bottom: 2rem; font-size: 1.2rem;">Great job!</p>
+
+            <a href="/" class="btn-primary" style="text-decoration: none; display: inline-flex;">Create New Quiz</a>
+        </div>
+    </div>
+
+    <script>
+        const QUIZ_ID = {{ quiz_id }};
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
