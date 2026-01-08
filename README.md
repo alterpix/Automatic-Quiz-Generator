@@ -47,23 +47,37 @@ A premium, AI-powered web application that generates multiple-choice quizzes fro
     ```bash
     python app.py
     ```
+    The application will be accessible at `http://localhost:5000` and on your local network at `http://<your-local-ip>:5000`.
 
-2.  **Access the app:**
-    Open your browser and go to `http://127.0.0.1:5000`.
+2.  **Run for Production (Publicly):**
+    To run the application in a production-like environment or make it accessible publicly (if port forwarding is set up), use `gunicorn`:
+    ```bash
+    gunicorn -w 4 -b 0.0.0.0:5000 app:app
+    ```
 
 3.  **Generate a Quiz:**
     -   Enter a topic (e.g., "Photosynthesis") or paste a block of text.
-    -   Select the difficulty and number of questions.
+    -   Select the difficulty (Easy, Medium, Hard) and number of questions (5, 10, 15).
     -   Click "Generate Quiz".
+    -   View your recent quizzes in the "Recent Quizzes" section.
 
-## Project Structure
+## Project Structure Explained
 
--   `app.py`: Main Flask application and API endpoints.
--   `ai_engine.py`: Logic for interacting with Google Gemini API using LangChain.
--   `models.py`: SQLAlchemy database models (`Quiz`, `Question`).
--   `templates/`: HTML templates (`index.html`, `quiz.html`).
--   `static/`: CSS styles (`style.css`) and JavaScript logic (`script.js`).
--   `tests/`: Verification scripts.
+Here is a detailed breakdown of the project's file structure:
+
+-   **`app.py`**: The core of the application. It initializes the Flask app, connects to the SQLite database, and defines the web routes (`/`, `/quiz/<id>`) and API endpoints (`/api/generate`, `/api/quiz/<id>`).
+-   **`ai_engine.py`**: Handles all interactions with the Google Gemini API. It uses LangChain to structure the prompt, sends it to the model, and parses the JSON response into a structured format.
+-   **`models.py`**: Defines the database schema using SQLAlchemy. It contains the `Quiz` (stores topic and date) and `Question` (stores text, options, answer, explanation) models.
+-   **`templates/`**: Contains the HTML files for the frontend.
+    -   `index.html`: The landing page with the topic input form and recent quizzes list.
+    -   `quiz.html`: The interactive quiz interface where users answer questions.
+-   **`static/`**: Contains static assets.
+    -   `style.css`: The CSS file defining the "Premium" look and feel (dark mode, glassmorphism, animations).
+    -   `script.js`: The JavaScript file handling frontend logic, API calls, and dynamic UI updates.
+-   **`tests/`**: Contains verification scripts.
+    -   `verify_ai.py`: A standalone script to test the AI generation logic without running the full web app.
+-   **`requirements.txt`**: Lists all Python dependencies required to run the project.
+-   **`.env`**: Stores sensitive environment variables like the `GOOGLE_API_KEY`.
 
 ## License
 
