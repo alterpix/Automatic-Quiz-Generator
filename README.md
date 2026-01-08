@@ -61,23 +61,26 @@ A premium, AI-powered web application that generates multiple-choice quizzes fro
     -   Click "Generate Quiz".
     -   View your recent quizzes in the "Recent Quizzes" section.
 
-## Project Structure Explained
+## Project Structure
 
-Here is a detailed breakdown of the project's file structure:
-
--   **`app.py`**: The core of the application. It initializes the Flask app, connects to the SQLite database, and defines the web routes (`/`, `/quiz/<id>`) and API endpoints (`/api/generate`, `/api/quiz/<id>`).
--   **`ai_engine.py`**: Handles all interactions with the Google Gemini API. It uses LangChain to structure the prompt, sends it to the model, and parses the JSON response into a structured format.
--   **`models.py`**: Defines the database schema using SQLAlchemy. It contains the `Quiz` (stores topic and date) and `Question` (stores text, options, answer, explanation) models.
--   **`templates/`**: Contains the HTML files for the frontend.
-    -   `index.html`: The landing page with the topic input form and recent quizzes list.
-    -   `quiz.html`: The interactive quiz interface where users answer questions.
--   **`static/`**: Contains static assets.
-    -   `style.css`: The CSS file defining the "Premium" look and feel (dark mode, glassmorphism, animations).
-    -   `script.js`: The JavaScript file handling frontend logic, API calls, and dynamic UI updates.
--   **`tests/`**: Contains verification scripts.
-    -   `verify_ai.py`: A standalone script to test the AI generation logic without running the full web app.
--   **`requirements.txt`**: Lists all Python dependencies required to run the project.
--   **`.env`**: Stores sensitive environment variables like the `GOOGLE_API_KEY`.
+```
+quiz_generator/
+├── app.py                  # Main Flask application and API endpoints
+├── ai_engine.py            # AI interaction logic (Gemini API)
+├── models.py               # Database models (Quiz, Question)
+├── requirements.txt        # Python dependencies
+├── .env                    # Environment variables (API Key)
+├── README.md               # Project documentation
+├── .gitignore              # Git ignore configuration
+├── templates/              # HTML templates
+│   ├── index.html          # Landing page
+│   └── quiz.html           # Quiz interface
+├── static/                 # Static assets
+│   ├── style.css           # Premium UI styles
+│   └── script.js           # Frontend logic
+└── tests/                  # Verification scripts
+    └── verify_ai.py        # AI generation test script
+```
 
 ## License
 
